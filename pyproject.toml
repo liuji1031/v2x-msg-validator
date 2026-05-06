@@ -1,0 +1,14 @@
+[project]
+name = "v2x-msg-validator"
+version = "0.1.0"
+description = "Validator for V2X messages according to J2735 standard"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+v2x-msg-validator = "v2x_msg_validator:main"
+
+[build-system]
+requires = ["uv_build>=0.11.7,<0.12.0"]
+build-backend = "uv_build"
