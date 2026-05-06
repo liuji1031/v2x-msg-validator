@@ -1,18 +1,30 @@
 import glob
-import os
-from typing import Annotated
 import logging
+import os
+import subprocess
 from pathlib import Path
+from typing import Annotated
 
 import typer
+import v2x_msg_validator.log_config
 from pycrate_asn1c.asnproc import compile_text
 from pycrate_asn1c.generator import PycrateGenerator
-
-import v2x_msg_validator.log_config
 
 logger = logging.getLogger(__name__)
 
 app = typer.Typer()
+
+SRC_ROOT = Path(__file__)
+iter = 0
+max_iter = 5
+while SRC_ROOT.name != "src":
+    SRC_ROOT = SRC_ROOT.parent
+    iter += 1
+    if iter > max_iter:
+        break
+if SRC_ROOT.name != "src":
+    # if cannot find src, reset
+    SRC_ROOT = Path(__file__)
 
 
 def compile_asn_folder(input_folder: str, output_path: str):
@@ -40,6 +52,58 @@ def compile_asn_folder(input_folder: str, output_path: str):
     PycrateGenerator(output_path)
 
 
+def setup_compiled_package_uv() -> None | Path:
+    """Create a subpackage for compiled code using uv.
+
+    Assuming uv is installed, use `uv init --bare` to create the package.
+    If
+    """
+    local_package_path = SRC_ROOT / ".compiled"
+    subpackage_name = "v2x_codecs"
+
+    if (local_package_path / subpackage_name / "__init__.py").exists():
+        logger.info("Local package already set up, skipping...")
+        return local_package_path / subpackage_name
+
+    try:
+        if not local_package_path.exists():
+            local_package_path.mkdir(parents=True)
+        subprocess.run(
+            [
+                "uv",
+                "init",
+                "--bare",
+                "--name",
+                subpackage_name,
+                "--build-backend",
+                "hatch",
+            ],
+            cwd=local_package_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        subprocess.run(["uv", "add", "pycrate", "--no-sync"])
+        logger.info(
+            "Successfully set up local package at %s", str(local_package_path)
+        )
+    except Exception as e:
+        logger.error("Error during local package creation: %s", e)
+        return None
+
+    # create the package structure
+    subpackage_path = local_package_path / subpackage_name
+    try:
+        subprocess.run(["mkdir", str(subpackage_path)])
+        subprocess.run(["touch", str(subpackage_path / "__init__.py")])
+        subprocess.run(["uv", "add", "--editable", ".compiled"], cwd=SRC_ROOT)
+    except Exception as e:
+        logger.error("Error during local package installation: %s", e)
+        return
+
+    return subpackage_path  # where to dump all future compiled files
+
+
 @app.command()
 def main(
     input_folder: Annotated[
@@ -53,21 +117,33 @@ def main(
             dir_okay=True,
         ),
     ],
-    output_path: Annotated[
-        Path,
+    module_name: Annotated[
+        str,
         typer.Option(
-            "--output-path",
-            "-o",
-            help="Path of the output Python file (path + <filename>.py)",
-            dir_okay=False,
+            "--name",
+            "-n",
+            help="The name of the compiled module (without .py)",
         ),
     ],
-):  
-    if not output_path.parent.exists():
-        logger.warning("Parent path of output file %s does not exist, creating...", str(output_path))
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-    compile_asn_folder(input_folder=str(input_folder), output_path=str(output_path))
-    logger.info("Compilation completed, output file: %s", str(output_path))
+):
+    output_path = Path(__file__).parent.parent / ".compiled"
+    if not output_path.exists():
+        logger.info("Creating .compiled folder at %s", str(output_path))
+        output_path.mkdir(parents=True, exist_ok=True)
+
+    module_name = module_name.split(".py")[0]  # remove .py if it is provided
+
+    subpackage_path = setup_compiled_package_uv()
+
+    if subpackage_path is None:
+        return
+
+    output_file_path = str(subpackage_path / (module_name + ".py"))
+
+    compile_asn_folder(
+        input_folder=str(input_folder), output_path=output_file_path
+    )
+    logger.info("Compilation completed, output file: %s", output_file_path)
 
 
 if __name__ == "__main__":
