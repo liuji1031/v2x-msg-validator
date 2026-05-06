@@ -61,6 +61,10 @@ def setup_compiled_package_uv() -> None | Path:
     local_package_path = SRC_ROOT / ".compiled"
     subpackage_name = "v2x_codecs"
 
+    if not local_package_path.exists():
+        logger.info("Creating .compiled folder at %s", str(local_package_path))
+        local_package_path.mkdir(parents=True, exist_ok=True)
+
     if (local_package_path / subpackage_name / "__init__.py").exists():
         logger.info("Local package already set up, skipping...")
         return local_package_path / subpackage_name
@@ -126,19 +130,15 @@ def main(
         ),
     ],
 ):
-    output_path = Path(__file__).parent.parent / ".compiled"
-    if not output_path.exists():
-        logger.info("Creating .compiled folder at %s", str(output_path))
-        output_path.mkdir(parents=True, exist_ok=True)
+    module_name = module_name if module_name.endswith(".py") else module_name + ".py"
 
-    module_name = module_name.split(".py")[0]  # remove .py if it is provided
-
+    # install the local package
     subpackage_path = setup_compiled_package_uv()
 
     if subpackage_path is None:
         return
 
-    output_file_path = str(subpackage_path / (module_name + ".py"))
+    output_file_path = str(subpackage_path / (module_name))
 
     compile_asn_folder(
         input_folder=str(input_folder), output_path=output_file_path
