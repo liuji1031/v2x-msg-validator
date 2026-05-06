@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "pycrate",
+    "typer>=0.25.1",
 ]
 
 [project.scripts]
