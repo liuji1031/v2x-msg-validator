@@ -14,7 +14,7 @@ for _rev in _SUPPORTED_REVISIONS:
         logger.info("Loaded codec for %s", _rev)
     except ImportError:
         logger.warning(
-            "Codec for %s not available; compile it before use.", _rev
+            "Codec for %s not available; compile it first with v2x-compile before use.", _rev
         )
 
 
@@ -22,6 +22,6 @@ def get_codec(revision: str) -> ModuleType:
     if revision not in _codec_registry:
         raise ImportError(
             f"Codec for '{revision}' is not available. "
-            f"Make sure v2x_codecs.{revision} is compiled and installed."
+            f"Make sure {revision} is compiled using v2x-compile."
         )
     return _codec_registry[revision]
