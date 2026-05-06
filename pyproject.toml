@@ -11,6 +11,7 @@ dependencies = [
 
 [project.scripts]
 v2x-msg-validator = "v2x_msg_validator:main"
+v2x-compile = "v2x_msg_validator.cli.compile:app"
 
 [build-system]
 requires = ["uv_build>=0.11.7,<0.12.0"]
