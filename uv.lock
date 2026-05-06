@@ -1,0 +1,19 @@
+version = 1
+revision = 3
+requires-python = ">=3.12"
+
+[[package]]
+name = "pycrate"
+version = "0.7.11"
+source = { git = "https://github.com/liuji1031/pycrate.git?branch=validation#145e049a50db57b996b8a74ba897738152633df0" }
+
+[[package]]
+name = "v2x-msg-validator"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "pycrate" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pycrate", git = "https://github.com/liuji1031/pycrate.git?branch=validation" }]
