@@ -28,7 +28,7 @@ uv add v2x-msg-validator --git https://github.com/liuji1031/v2x-msg-validator.gi
 After installing, you must compile the ASN.1 definitions before the validator can be used (the compiled codec is not included in the repo):
 
 ```bash
-uv run v2x-compile -i <path-to-J2735ASN_202409> -n j2735_202409
+uv run v2x-compile -i <path-to-asn-folder> -n <module-name>
 ```
 
 ## Setup (Development)
@@ -53,7 +53,16 @@ uv run v2x-compile -i <path-to-J2735ASN_202409-folder-with-asn-files> -n j2735_2
 
 This generates a Python module at `src/.compiled/v2x_codecs/j2735_202409.py` and installs it as an editable local package.
 
+If a modified standard is provided, compile it into a module with a custom name, and pass in the custom module name in the initialization of the validator:
+
+```python
+from v2x_msg_validator.validator import V2XMessageValidator
+
+validator = V2XMessageValidator(revision="<custom_module_name>")
+```
+
 ## Validating Messages
+Example code snippet using the compiled `j2735_202409` module:
 
 ```python
 from v2x_msg_validator.validator import V2XMessageValidator
