@@ -98,9 +98,15 @@ def setup_compiled_package_uv() -> None | Path:
     # create the package structure
     subpackage_path = local_package_path / subpackage_name
     try:
-        subprocess.run(["mkdir", str(subpackage_path)])
-        subprocess.run(["touch", str(subpackage_path / "__init__.py")])
-        subprocess.run(["uv", "add", "--editable", ".compiled"], cwd=SRC_ROOT)
+        subpackage_path.mkdir(parents=True, exist_ok=True)
+        (subpackage_path / "__init__.py").touch(exist_ok=True)
+        subprocess.run(
+            ["uv", "add", "--editable", ".compiled"],
+            cwd=SRC_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
     except Exception as e:
         logger.error("Error during local package installation: %s", e)
         return
