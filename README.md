@@ -9,6 +9,8 @@ Validates V2X messages against the J2735 ASN.1 standard using a custom [pycrate]
 3. Given a message (as a Python dict or YAML), the validator calls the type's `set_val()` method which recursively checks structure, types, constraints, and required fields.
 4. All validation errors are collected (not fail-fast) and returned with a dot-notation key path, error code, and the offending value.
 
+See the [demo notebook](notebooks/demo.ipynb) for example usage of the validator.
+
 ## Installation
 
 To install from GitHub source:
