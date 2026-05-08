@@ -1,0 +1,47 @@
+messageId: 19
+value:
+  SPAT:
+    timeStamp: 428788
+    name: "TestSPAT"
+    intersections:
+    - name: "West Intersection"
+      id:
+        region: 100
+        id: 9709
+      revision: 1
+      status: '0000000010000000'
+      moy: 428788
+      timeStamp: 46175
+      enabledLanes:
+      - 1
+      - 2
+      states:
+      - movementName: "Phase1"
+        signalGroup: 1
+        state-time-speed:
+        - eventState: protected-Movement-Allowed
+          timing:
+            startTime: 17000
+            minEndTime: 17261
+            maxEndTime: 17399
+            likelyTime: 17350
+            confidence: 10
+            nextTime: 18000
+          speeds:
+          - type: greenwave
+            speed: 250
+            confidence: prec1ms
+            distance: 500
+            class: 1
+        maneuverAssistList:
+        - connectionID: 5
+          queueLength: 100
+          availableStorageLength: 200
+          waitOnStop: true
+          pedBicycleDetect: false
+      maneuverAssistList:
+      - connectionID: 10
+        queueLength: 50
+        availableStorageLength: 150
+        waitOnStop: false
+        pedBicycleDetect: true
