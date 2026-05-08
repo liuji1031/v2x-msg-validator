@@ -26,7 +26,7 @@ uv run pytest
 
 ## Currently tested message type:
 
-[x] MAP
-[ ] SPAT
-[ ] TIM
-[ ] PSM
+[x] MAP <br/>
+[ ] SPAT <br/>
+[ ] TIM <br/>
+[ ] PSM <br/>
