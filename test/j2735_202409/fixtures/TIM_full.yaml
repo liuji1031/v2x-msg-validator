@@ -1,0 +1,56 @@
+messageId: 31
+value:
+  TravelerInformation:
+    msgCnt: 1
+    timeStamp: 394574
+    packetID: '000000000000000000'
+    urlB: "http://example.com"
+    dataFrames:
+    - doNotUse1: 0
+      frameType: advisory
+      msgId:
+        roadSignID:
+          position:
+            lat: 389549153
+            long: -771488965
+            elevation: 400
+          viewAngle: 'ac10'
+          mutcdCode: warning
+          crc: '0000'
+      startYear: 2024
+      startTime: 394574
+      durationTime: 32000
+      priority: 5
+      doNotUse2: 0
+      regions:
+      - name: "TestRegion"
+        anchor:
+          lat: 389549153
+          long: -771488965
+          elevation: 400
+        laneWidth: 366
+        directionality: forward
+        closedPath: false
+        direction: '1000000000000000'
+        description:
+          path:
+            offset:
+              xy:
+                nodes:
+                - delta:
+                    node-XY6:
+                      x: 1000
+                      y: 2000
+                - delta:
+                    node-XY6:
+                      x: 1500
+                      y: 2500
+      doNotUse3: 0
+      doNotUse4: 0
+      content:
+        speedLimit:
+        - item:
+            itis: 27
+        - item:
+            text: "Speed 25"
+      url: "http://x.co"
