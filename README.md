@@ -7,7 +7,7 @@ Validates V2X messages against the J2735 ASN.1 standard using a custom [pycrate]
 1. ASN.1 definition files are compiled into a Python codec module using `v2x-compile`, a command line tool shipped with this package.
 2. At runtime, the validator loads the compiled codec and builds a lookup from `messageId` to the corresponding ASN.1 type.
 3. Given a message (as a Python dict or YAML), the validator calls the type's `set_val()` method which recursively checks structure, types, constraints, and required fields.
-4. All validation errors are collected (not fail-fast) and returned with a dot-notation key path, error code, and the offending value.
+4. All validation errors are collected (original pycrate behavior will raise upon the first error) and returned with a dot-notation key path, error code, and the offending value.
 
 See the [demo notebook](notebooks/demo.ipynb) for example usage of the validator.
 
