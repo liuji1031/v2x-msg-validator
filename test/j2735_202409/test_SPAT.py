@@ -1,18 +1,13 @@
 import copy
-import random
-from pathlib import Path
 
 import pytest
 import yaml
-
 from pycrate_asn1rt.err import ASN1ObjValErr
-
-FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
 @pytest.fixture
-def spat_full_data():
-    with open(FIXTURES_DIR / "SPAT_full.yaml", "r") as f:
+def spat_full_data(fixtures_dir):
+    with open(fixtures_dir / "SPAT.yaml", "r") as f:
         data = yaml.safe_load(f)
     return data
 
@@ -189,8 +184,6 @@ class TestInvalidKeys:
         data = copy.deepcopy(spat_full_data)
         inner = data["value"]["SPAT"]
 
-        rng = random.Random(42)
-
         targets = [
             inner,
             inner["intersections"][0],
@@ -203,8 +196,6 @@ class TestInvalidKeys:
             inner["intersections"][0]["states"][0]["maneuverAssistList"][0],
             inner,
         ]
-
-        rng.shuffle(targets)
 
         bogus_keys = [f"bogus_key_{i}" for i in range(10)]
         for i, key in enumerate(bogus_keys):

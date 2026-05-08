@@ -1,9 +1,15 @@
 import copy
-import random
 
 import pytest
-
+import yaml
 from pycrate_asn1rt.err import ASN1ObjValErr
+
+
+@pytest.fixture
+def map_full_data(fixtures_dir):
+    with open(fixtures_dir / "MAP.yaml", "r") as f:
+        data = yaml.safe_load(f)
+    return data
 
 
 class TestValidFullMessage:
@@ -350,8 +356,6 @@ class TestInvalidKeys:
         data = copy.deepcopy(map_full_data)
         inner = data["value"]["MapData"]
 
-        rng = random.Random(42)
-
         targets = [
             inner,
             inner["intersections"][0],
@@ -367,9 +371,7 @@ class TestInvalidKeys:
             inner["roadSegments"][0],
         ]
 
-        rng.shuffle(targets)
-
-        bogus_keys = [f"bogus_key_{i}" for i in range(10)]
+        bogus_keys = [f"bogus_key_{i}" for i in range(len(targets))]
         for i, key in enumerate(bogus_keys):
             targets[i][key] = "invalid_value"
 

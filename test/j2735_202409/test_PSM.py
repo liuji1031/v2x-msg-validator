@@ -1,18 +1,13 @@
 import copy
-import random
-from pathlib import Path
 
 import pytest
 import yaml
-
 from pycrate_asn1rt.err import ASN1ObjValErr
-
-FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
 @pytest.fixture
-def psm_full_data():
-    with open(FIXTURES_DIR / "PSM_full.yaml", "r") as f:
+def psm_full_data(fixtures_dir):
+    with open(fixtures_dir / "PSM.yaml", "r") as f:
         data = yaml.safe_load(f)
     return data
 
@@ -229,8 +224,6 @@ class TestInvalidKeys:
         data = copy.deepcopy(psm_full_data)
         inner = data["value"]["PersonalSafetyMessage"]
 
-        rng = random.Random(42)
-
         targets = [
             inner,
             inner["position"],
@@ -244,7 +237,6 @@ class TestInvalidKeys:
             inner["pathPrediction"],
         ]
 
-        rng.shuffle(targets)
 
         bogus_keys = [f"bogus_key_{i}" for i in range(10)]
         for i, key in enumerate(bogus_keys):
