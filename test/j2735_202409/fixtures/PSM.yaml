@@ -25,16 +25,16 @@ value:
       confidence: 200
     propulsion:
       human: onFoot
-    useState: '000000000'
+    useState: '0000'
     crossRequest: true
     crossState: false
     clusterSize: small
     clusterRadius: 10
     eventResponderType: lawEnforcement
-    activityType: '000000'
-    activitySubType: '0000000'
-    assistType: '000000'
-    sizing: '00000'
+    activityType: '00'
+    activitySubType: '00'
+    assistType: '00'
+    sizing: '00'
     attachment: stroller
     attachmentRadius: 50
     animalType: pet

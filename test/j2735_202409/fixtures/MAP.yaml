@@ -26,10 +26,10 @@ value:
         egressApproach: 2
         laneAttributes:
           directionalUse: '10'
-          sharedWith: '0000000000'
+          sharedWith: '0000'
           laneType:
-            vehicle: '00000000'
-        maneuvers: '800'
+            vehicle: '00'
+        maneuvers: '8000'
         nodeList:
           nodes:
           - delta:
@@ -54,7 +54,7 @@ value:
         connectsTo:
         - connectingLane:
             lane: 25
-            maneuver: '800'
+            maneuver: '8000'
           remoteIntersection:
             region: 100
             id: 1002
@@ -62,8 +62,8 @@ value:
           userClass: 1
           connectionID: 10
         overlays:
-        - 2
-        - 3
+                - 2
+                - 3
     roadSegments:
     - name: "TestRoadSegment"
       id:
@@ -81,10 +81,10 @@ value:
       roadLaneSet:
       - laneID: 10
         laneAttributes:
-          directionalUse: '10'
-          sharedWith: '0000000000'
+          directionalUse: '80'
+          sharedWith: '0000'
           laneType:
-            vehicle: '00000000'
+            vehicle: '0000'
         nodeList:
           nodes:
           - delta:

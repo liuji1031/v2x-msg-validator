@@ -31,7 +31,7 @@ value:
         laneWidth: 366
         directionality: forward
         closedPath: false
-        direction: '1000000000000000'
+        direction: '8000'
         description:
           path:
             offset:
