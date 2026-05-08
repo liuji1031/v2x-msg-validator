@@ -1,0 +1,106 @@
+messageId: 18
+value:
+  MapData:
+    timeStamp: 400000
+    msgIssueRevision: 5
+    layerType: intersectionData
+    layerID: 1
+    intersections:
+    - name: "TestIntersection"
+      id:
+        region: 100
+        id: 1001
+      revision: 3
+      refPoint:
+        lat: 389284111
+        long: -772410713
+        elevation: 1000
+      laneWidth: 366
+      speedLimits:
+      - type: maxSpeedInSchoolZone
+        speed: 500
+      laneSet:
+      - laneID: 1
+        name: "Lane1"
+        ingressApproach: 1
+        egressApproach: 2
+        laneAttributes:
+          directionalUse: '10'
+          sharedWith: '0000000000'
+          laneType:
+            vehicle: '00000000'
+        maneuvers: '800'
+        nodeList:
+          nodes:
+          - delta:
+              node-XY6:
+                x: -4012
+                y: 365
+            attributes:
+              localNode:
+              - stopLine
+              disabled:
+              - doNotBlock
+              enabled:
+              - adaptiveTimingPresent
+              data:
+              - pathEndPointAngle: 10
+              dWidth: 50
+              dElevation: 10
+          - delta:
+              node-XY6:
+                x: -5541
+                y: 7249
+        connectsTo:
+        - connectingLane:
+            lane: 25
+            maneuver: '800'
+          remoteIntersection:
+            region: 100
+            id: 1002
+          signalGroup: 2
+          userClass: 1
+          connectionID: 10
+        overlays:
+        - 2
+        - 3
+    roadSegments:
+    - name: "TestRoadSegment"
+      id:
+        region: 100
+        id: 2001
+      revision: 2
+      refPoint:
+        lat: 389300000
+        long: -772400000
+        elevation: 1050
+      laneWidth: 350
+      speedLimits:
+      - type: maxSpeedInConstructionZone
+        speed: 400
+      roadLaneSet:
+      - laneID: 10
+        laneAttributes:
+          directionalUse: '10'
+          sharedWith: '0000000000'
+          laneType:
+            vehicle: '00000000'
+        nodeList:
+          nodes:
+          - delta:
+              node-XY6:
+                x: 1000
+                y: 2000
+          - delta:
+              node-XY6:
+                x: 1500
+                y: 2500
+    dataParameters:
+      processMethod: "RTCM"
+      processAgency: "TestAgency"
+      lastCheckedDate: "2024-01-15"
+      geoidUsed: "WGS84"
+    restrictionList:
+    - id: 1
+      users:
+      - basicType: equippedTransit
