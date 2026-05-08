@@ -21,9 +21,12 @@ build-backend = "uv_build"
 [tool.uv.sources]
 pycrate = { git = "https://github.com/liuji1031/pycrate.git", branch = "validation" }
 
+[tool.pytest.ini_options]
+testpaths = ["test"]
 
 [dependency-groups]
 dev = [
     "ipykernel>=7.2.0",
     "ipython>=9.13.0",
+    "pytest>=9.0.3",
 ]
