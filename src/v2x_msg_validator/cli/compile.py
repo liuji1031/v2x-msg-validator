@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-import v2x_msg_validator.log_config
+import v2x_msg_validator.logger_config
 from pycrate_asn1c.asnproc import compile_text
 from pycrate_asn1c.generator import PycrateGenerator
 

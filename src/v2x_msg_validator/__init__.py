@@ -1,2 +1,1 @@
-def main() -> None:
-    print("Hello from v2x-msg-validator!")
+import v2x_msg_validator.logger_config
